@@ -14,11 +14,13 @@ class Board(Frame):
 
         # First, the welcome screen:
         # create labels
-        self.welcomeLabel = Label(self,text = 'CHUTES AND LADDERS',font = "Verdana 30 bold", fg = "gray30")
+        self.welcomeLabel = Label(self,text = 'CHUTES AND LADDERS',font = "Verdana 30 bold", fg = "gray32")
         self.welcomeLabel.grid(row=0,columnspan=4)
         self.playerLabel = Label(self,text='How many players?',font=("Calibri"))
         self.playerLabel.grid(row=1,columnspan=4)
-
+        self.noteLabel = Label(self,text='Note: by selecting 1 player, you will be playing against 3 computer players.',font=("Calibri"))
+        self.noteLabel.grid(row=3,columnspan=4)
+        
         # create options for numPlayers (1-4 players)
         self.player1 = Button(self,text='1',command=lambda:self.set_num_players(1))
         self.player1.grid(row=2,column = 0)
@@ -30,11 +32,11 @@ class Board(Frame):
         self.player4.grid(row=2,column = 3)
 
         self.next = Button(self,text='Play!',command=lambda:self.create_board(),state=DISABLED)
-        self.next.grid(row=3,columnspan = 4)
+        self.next.grid(row=4,columnspan = 4)
 
         # Second: the actual game screen. Nothing is gridded yet (will be gridded in create_board)
         # title
-        self.title = Label(self,text = 'CHUTES AND LADDERS',font = "Verdana 30 bold", fg = "gray30")
+        self.title = Label(self,text = 'CHUTES AND LADDERS',font = "Verdana 30 bold", fg = "gray32")
 
         #game announcer/commentator
         self.text = StringVar()
@@ -48,6 +50,13 @@ class Board(Frame):
         #forward and backwards buttons
         self.forward = Button(self,text='Forward',font = "Verdana 20 bold", fg = "gray65",state=DISABLED)
         self.backward = Button(self,text = 'Backward',font = "Verdana 20 bold",state=DISABLED)
+
+        #players' tokens
+        self.player1 = PlayerTile(self,1) #blue
+        self.player2 = PlayerTile(self,2) #red
+        self.player3 = PlayerTile(self,3) #green
+        self.player4 = PlayerTile(self,4) #yellow
+        self.player1.grid(row = 5, column = 5)
         
     def set_num_players(self, x):
         '''set_num_players(self,x) -> takes in an integer (1,2,3,4)
@@ -74,6 +83,9 @@ class Board(Frame):
         self.comments.grid(row = 1,column=3)
         self.forward.grid(row = 2, column=1)
         self.backward.grid(row = 2, column=0)
+
+        #create the players (player 1 is blue, player 2 is red, player 3 is green, player 4 is yellow)
+        
         
     def update_comments(self, x):
         '''updates commentary text box. the commentary text box should
@@ -95,6 +107,26 @@ class Board(Frame):
     def disable_backward_button(self):
         '''disables backward button'''
         self.backward['state'] = DISABLED
+
+
+
+class PlayerTile(Canvas):
+    '''represents a single player tile'''
+
+    def __init__(self, master, num):
+        '''num -> int. determines which player it is'''
+        Canvas.__init__(self, master, width = 60, height = 60)
+        self.num = num
+        color = ""
+        if(self.num == 1):
+            color = "blue"
+        elif(self.num == 2):
+            color = "red"
+        elif(self.num == 3):
+            color = "green"
+        else:
+            color = "yellow"
+        self.player = self.create_oval(30,30,30,30,fill = color, width = 30)
 
 
 class ChutesAndLadders:
