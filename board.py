@@ -120,7 +120,6 @@ class ChutesAndLadders:
         bd = Board(root)
         bd.mainloop()
         bd.player_list_generation()
-        print(bd.player_list_update())
 
 
 ChutesAndLadders()
