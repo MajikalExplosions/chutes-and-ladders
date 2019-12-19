@@ -3,32 +3,38 @@ import random
 import math
 import time
 
-class spinner:
-    def __init__(self, centerX, centerY, radius, window):
+class spinner(Canvas):
+    def __init__(self, master, centerX, centerY, radius):
         self.radius = radius
         self.centerX = centerX
         self.centerY = centerY
-        self.window = window
 
         #creates the six sections of the spinner, the actual spinning line, labels, and the center circle
-        self.window.create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=0, extent=60,
-                          fill="red")
-        self.window.create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=60, extent=60,
-                          fill="blue")
-        self.window.create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=120, extent=60,
-                          fill="green")
-        self.window.create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=180, extent=60,
-                          fill="yellow")
-        self.window.create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=240, extent=60,
-                          fill="purple")
-        self.window.create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=300, extent=60,
-                          fill="orange")
+        self..create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=0, extent=60,
+                               fill="red")
+        self..create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=60, extent=60,
+                               fill="blue")
+        self..create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=120, extent=60,
+                               fill="green")
+        self..create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=180, extent=60,
+                               fill="yellow")
+        self..create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=240, extent=60,
+                               fill="purple")
+        self..create_arc(centerX - self.radius, centerY - self.radius, centerX + self.radius, centerY + self.radius, start=300, extent=60,
+                               fill="orange")
 
         spinnerWidth = self.radius / 15
-        self.spinner = self.window.create_line(centerX, centerY, centerX + (self.radius + math.cos(-math.pi/6)), centerY + (math.sin(-math.pi/6)), width=spinnerWidth, fill="black")
+        self.spinner = self..create_line(centerX, centerY, centerX + (self.radius + math.cos(-math.pi / 6)), centerY + (math.sin(-math.pi / 6)), width=spinnerWidth, fill="black")
 
         ovalRadius = self.radius / 10
-        self.window.create_oval(centerX - ovalRadius, centerY - ovalRadius, centerX + ovalRadius, centerY + ovalRadius, fill="brown")
+        self..create_oval(centerX - ovalRadius, centerY - ovalRadius, centerX + ovalRadius, centerY + ovalRadius, fill="brown")
+
+        self..create_text(self.centerX + self.radius / 2 * math.cos(math.pi / 6), self.centerY - self.radius / 2 * math.sin(math.pi / 6), font=("Avenir", 30), text="1")
+        self..create_text(self.centerX + self.radius / 2 * math.cos(math.pi / 2), self.centerY - self.radius / 2 * math.sin(math.pi / 2), font=("Avenir", 30), text="2")
+        self..create_text(self.centerX + self.radius / 2 * math.cos(5 * math.pi / 6), self.centerY - self.radius / 2 * math.sin(5 * math.pi / 6), font=("Avenir", 30), text="3")
+        self..create_text(self.centerX + self.radius / 2 * math.cos(7 * math.pi / 6), self.centerY - self.radius / 2 * math.sin(7 * math.pi / 6), font=("Avenir", 30), text="4")
+        self..create_text(self.centerX + self.radius / 2 * math.cos(3 * math.pi / 2), self.centerY - self.radius / 2 * math.sin(3 * math.pi / 2), font=("Avenir", 30), text="5")
+        self..create_text(self.centerX + self.radius / 2 * math.cos(11 * math.pi / 6), self.centerY - self.radius / 2 * math.sin(11 * math.pi / 6), font=("Avenir", 30), text="6")
 
     def spin(self):
         randNum = random.randrange(1, 7) #generates random integer between 1-6 to be returned
@@ -44,12 +50,12 @@ class spinner:
         for i in range((radianDivisor * 12) + (4 * randNum)):
             angle += math.pi / radianDivisor
             self.rotateSpinner(angle)
-            self.window._root().update()
+            self.._root().update()
             time.sleep(0.01)
 
         return randNum
     
     #rotates spinner for the specified angle (in radians)
     def rotateSpinner(self, angle):
-        self.window.coords(self.spinner, self.centerX, self.centerY, self.centerX + (self.radius * math.cos(angle)),
+        self..coords(self.spinner, self.centerX, self.centerY, self.centerX + (self.radius * math.cos(angle)),
                            self.centerY - (self.radius * math.sin(angle)))
