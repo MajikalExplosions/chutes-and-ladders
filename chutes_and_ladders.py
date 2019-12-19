@@ -1,5 +1,7 @@
+from board import *
+
 def main():
-    game_window = GameWindow()
+    ChutesAndLadders()
 
 if __name__ == "__main__":
     main()

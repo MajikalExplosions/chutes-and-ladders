@@ -1,6 +1,5 @@
 from tkinter import *
 
-
 class Board(Frame):
     """creates a new Chutes and Ladders game"""
 
@@ -121,5 +120,3 @@ class ChutesAndLadders:
         bd.mainloop()
         bd.player_list_generation()
 
-
-ChutesAndLadders()
