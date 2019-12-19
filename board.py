@@ -1,4 +1,5 @@
 from tkinter import *
+import spinner
 
 
 class Board(Frame):
@@ -52,6 +53,9 @@ class Board(Frame):
         # forward and backwards buttons
         self.forward = Button(self, text='Forward', font="Verdana 20 bold", fg="gray65", state=DISABLED)
         self.backward = Button(self, text='Backward', font="Verdana 20 bold", state=DISABLED)
+
+        # spinner
+        self.spinner = spinner.spinner(200,300,20,Frame.__init__(self, master,bg="white", padx=5, pady=5))
         
     def set_num_players(self, x):
         """set_num_players(self,x) -> takes in an integer (1,2,3,4)
